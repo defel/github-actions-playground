@@ -1,0 +1,11 @@
+name: Deploy
+
+on:
+  deployment
+
+
+jobs:
+  debug:
+    steps:
+      - name: get deployment infos
+        run: echo "${{github.event.deployment.id}}"
