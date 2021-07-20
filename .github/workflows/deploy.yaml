@@ -7,6 +7,12 @@ on:
 jobs:
   debug:
     runs-on: ubuntu-18.04
-    steps:
-      - name: get deployment infos
-        run: echo "${{github.event.deployment.id}}"
+    steps:      
+      - name: finish the deployment
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: https://github.com/defel/github-actions-playground
+          description: "finish the deployment from github action"
+          state: "success"
+          deployment_id: ${{ github.event.deployment.id }}
