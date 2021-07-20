@@ -1,13 +1,39 @@
 = Github Actions Playground
 
+== Deployments
+
+=== List Deployents
+
+[source]
+----
+curl -X GET -H "Accept: application/vnd.github.v3+json" -u <gh-user>:<token> https://api.github.com/repos/defel/github-actions-playground/deployments
+----
 
 
-== Create Deployent
+=== Create Deployent
+
+Deploy to prod env (default env):
 
 [source]
 ----
 curl -X POST -H "Accept: application/vnd.github.v3+json" -u <gh-user>:<token> https://api.github.com/repos/defel/github-actions-playground/deployments -d '{"ref":"d32a820"}'
 ----
+
+Deploy to dev env: 
+
+[source]
+----
+curl -X POST -H "Accept: application/vnd.github.v3+json" -u <gh-user>:<token> https://api.github.com/repos/defel/github-actions-playground/deployments -d '{"ref":"d32a820", "environment": "dev"}'
+----
+
+=== Delete Deployment
+
+[source]
+----
+curl -X DELETE -H "Accept: application/vnd.github.v3+json" -u <gh-user>:<token> https://api.github.com/repos/defel/github-actions-playground/deployments/395445765
+----
+
+=== Update Deployment Status
 
 
 == Links
