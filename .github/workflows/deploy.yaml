@@ -6,6 +6,7 @@ on:
 
 jobs:
   debug:
+    runs-on: ubuntu-18.04
     steps:
       - name: get deployment infos
         run: echo "${{github.event.deployment.id}}"
