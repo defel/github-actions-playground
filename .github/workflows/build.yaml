@@ -12,5 +12,5 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build and Push Boot Image
         run: |
-          docker build . -t ghcr.io/defel/github-actions-playground:latest -t ghcr.io/defel/github-actions-playground:1.0.1
+          docker build . -t ghcr.io/defel/github-actions-playground:latest -t ghcr.io/defel/github-actions-playground:1.0.2
           docker push --all-tags ghcr.io/defel/github-actions-playground
