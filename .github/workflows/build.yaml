@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  push
+
+jobs:
+  debug:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Log in to GitHub registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Build and Push Boot Image
+        run: |
+          docker build . -t ghcr.io/defel/github-actions-playground:latest -t ghcr.io/defel/github-actions-playground:1.0.0
+          docker push ghcr.io/defel/github-actions-playground:latest
