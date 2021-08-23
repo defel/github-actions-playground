@@ -7,14 +7,23 @@ on:
 jobs:
   debug:
     runs-on: ubuntu-18.04
+
     steps:
-      - name: pull image and push to ecr
-        run: echo ${{ github.event.deployment.ref }}
-#      - name: finish the deployment
-#        uses: chrnorm/deployment-status@releases/v1
-#        with:
-#          token: "${{ github.token }}"
-#          target_url: https://github.com/defel/github-actions-playground
-#          description: "finish the deployment from github action"
-#          state: "success"
-#          deployment_id: ${{ github.event.deployment.id }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIA4HF3NJAUWSKWDAHF
+          aws-secret-access-key: ${{ secrets.AWS_SECRET }}
+          aws-region: eu-central-1
+      - name: Log in to GitHub registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: pull image and tag
+        run: |
+          docker pull ghcr.io/defel/github-actions-playground:${{ github.event.deployment.ref }}
+          docker tag ghcr.io/defel/github-actions-playground:${{ github.event.deployment.ref }} 840059144233.dkr.ecr.eu-central-1.amazonaws.com/test-repo-delme:latest
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: push image to ecr
+        run: docker push 840059144233.dkr.ecr.eu-central-1.amazonaws.com/test-repo-delme:latest
+
