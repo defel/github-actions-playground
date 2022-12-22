@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 env:
   BUILD_TIME: ${{github.event.repository.updated_at}}
-  BUILD_VERSION: ${{ GITHUB_SHA }}
+  BUILD_VERSION: ${{ github.sha }}
 
 jobs:
   foobar:
