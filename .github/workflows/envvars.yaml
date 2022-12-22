@@ -1,0 +1,17 @@
+Name: Env Vars
+
+on: workflow_dispatch
+
+env:
+  BUILD_TIME: ${{github.event.repository.updated_at}}
+  BUILD_VERSION: ${{env.GITHUB_SHA}}
+
+jobs:
+  foobar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Build Time"
+        run: "echo ${{ env.BUILD_TIME }}" 
+      - name: "Build Version"
+        run: "echo ${{ env.BUILD_VERSION }}"
